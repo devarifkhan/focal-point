@@ -1,0 +1,157 @@
+.verify-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: #232428;
+    color: #fff;
+    line-height: 1.6;
+    position: relative;
+    overflow: hidden;
+}
+
+.verify-container::before {
+    content: "";
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background: #2c2e2f;
+    top: -25%;
+    left: -25%;
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.verify-container .main-container {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    background: #232428;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* .verify-container .main-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+} */
+
+.verify-container .main-container .header {
+    padding: 24px;
+    background: #17191a;
+}
+
+.verify-container .main-container .main-content {
+    padding: 24px;
+}
+.verify-container .main-container .main-content .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+}
+
+.verify-container .main-container .card-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.verify-container .main-container .card-description {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+    color: #cacaca;
+    text-align: center;
+    line-height: 100%;
+    line-height: 1.2;
+}
+.verify-container .main-container .card-description strong {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.verify-container .main-container .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.verify-container .main-container .resend-prompt {
+    font-size: 14px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 0;
+    color: #cacaca;
+}
+
+.verify-container .main-container .resend-link-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.verify-container .main-container .resend-link-container a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #cacaca;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: #2c2e2f;
+}
+
+.verify-container .main-container .resend-link:hover {
+    background: #2c2e2f;
+    transform: translateY(-1px);
+}
+
+.verify-container .main-container .text-muted {
+    color: #cacaca;
+}
+
+.loader-icon {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

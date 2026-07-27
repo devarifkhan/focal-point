@@ -1,0 +1,13 @@
+pvenv/
+__pycache__/
+migrations/
+venv
+static_root
+*.log
+development*.zip
+qa*.zip
+production*.zip
+stage*.zip
+prod*.zip
+.idea
+.venv

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add/Edit URL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add/Edit URL</h1>
+    
+    <form id="urlForm" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="block_urls">Block URL:</label>
+            <input type="text" id="block_urls" name="block_urls" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="redirect_urls">Redirect URL:</label>
+            <input type="text" id="redirect_urls" name="redirect_urls">
+        </div>
+        
+        <div class="form-group">
+            <label for="minutes_to_unblock">Minutes to Unblock:</label>
+            <input type="number" id="minutes_to_unblock" name="minutes_to_unblock" value="5">
+        </div>
+        
+        <div class="form-group">
+            <label for="timezone">Your Timezone:</label>
+            <select id="timezone" name="timezone">
+                <option value="UTC">UTC</option>
+                <option value="America/New_York">Eastern Time (US & Canada)</option>
+                <option value="America/Chicago">Central Time (US & Canada)</option>
+                <option value="America/Denver">Mountain Time (US & Canada)</option>
+                <option value="America/Los_Angeles">Pacific Time (US & Canada)</option>
+                <option value="Europe/London">London</option>
+                <option value="Europe/Paris">Paris</option>
+                <option value="Asia/Tokyo">Tokyo</option>
+                <option value="Asia/Dhaka">Dhaka</option>
+                <option value="Asia/Kolkata">Kolkata</option>
+                <!-- Add more timezone options as needed -->
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="3"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="image">Image (optional):</label>
+            <input type="file" id="image" name="image">
+        </div>
+        
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="is_temporary" name="is_temporary"> Temporary block
+            </label>
+        </div>
+        
+        <button type="submit">Save URL</button>
+    </form>
+    
+    <script>
+        document.getElementById('urlForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            // Add the authorization token to headers
+            const headers = {
+                'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+            };
+            
+            // Send the form data to the API
+            fetch('/api/urlshandler/add', {
+                method: 'POST',
+                headers: headers,
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.code === 'SUCCESS') {
+                    alert('URL added successfully!');
+                    // Reset form or redirect as needed
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred: ' + error.message);
+            });
+        });
+        
+        // Try to detect user's timezone automatically
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                if (timezone) {
+                    const timezoneSelect = document.getElementById('timezone');
+                    const options = timezoneSelect.options;
+                    for (let i = 0; i < options.length; i++) {
+                        if (options[i].value === timezone) {
+                            timezoneSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error('Error detecting timezone:', e);
+            }
+        });
+    </script>
+</body>
+</html> 

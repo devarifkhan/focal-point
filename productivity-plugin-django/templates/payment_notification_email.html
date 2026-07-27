@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Payment {{ status|title }} - Focusly</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #e1e1e1;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #e1e1e1;
+            margin-bottom: 20px;
+        }
+        .header img {
+            max-width: 200px;
+        }
+        .content {
+            padding: 0 20px;
+        }
+        .status-success {
+            color: #16a34a;
+            background-color: #f0fdf4;
+            border: 2px solid #bbf7d0;
+        }
+        .status-failed {
+            color: #dc2626;
+            background-color: #fef2f2;
+            border: 2px solid #fecaca;
+        }
+        .status-box {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .status-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .payment-details {
+            background-color: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid {% if status == 'SUCCESS' %}#16a34a{% else %}#dc2626{% endif %};
+        }
+        .payment-details h3 {
+            color: {% if status == 'SUCCESS' %}#16a34a{% else %}#dc2626{% endif %};
+            margin-top: 0;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid #e1e1e1;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://i.postimg.cc/zV8FxrK7/logo.png" alt="Focusly Logo">
+        </div>
+        
+        <div class="content">
+            <p>Dear {{ user_name }},</p>
+            
+            <div class="status-box {% if status == 'SUCCESS' %}status-success{% else %}status-failed{% endif %}">
+                <div class="status-title">
+                    {% if status == 'SUCCESS' %}
+                        Payment Successful! 🎉
+                    {% else %}
+                        Payment Failed
+                    {% endif %}
+                </div>
+                <p>
+                    {% if status == 'SUCCESS' %}
+                        Your payment has been processed successfully. Welcome to Focusly Premium!
+                    {% else %}
+                        We're sorry, but your payment could not be processed at this time.
+                    {% endif %}
+                </p>
+            </div>
+            
+            <div class="payment-details">
+                <h3>Payment Details</h3>
+                <p><strong>Transaction ID:</strong> {{ transaction_id }}</p>
+                <p><strong>Amount:</strong> {{ amount }} {{ currency }}</p>
+                <p><strong>Plan:</strong> Premium Subscription</p>
+                <p><strong>Date:</strong> {{ payment_date }}</p>
+            </div>
+            
+            {% if status == 'SUCCESS' %}
+                <p>Your premium features are now active and you can enjoy unlimited URL blocking capabilities.</p>
+                <p>Thank you for choosing Focusly!</p>
+            {% else %}
+                <p>Please try again or contact our support team if you continue to experience issues.</p>
+                <p>You can retry your payment by visiting your account settings.</p>
+            {% endif %}
+            
+            <p>Best regards,<br>The Focusly Team</p>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; Focusly. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
