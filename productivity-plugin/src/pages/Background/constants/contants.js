@@ -1,0 +1,8 @@
+import { API_BASE_URL } from '../../../config/config';
+
+const DEFAULT_CHECK_INTERVAL = 5000; // 15 seconds
+const EXTENDED_CHECK_INTERVAL = 120000; // 2 minutes
+const EXTENDED_INTERVAL_THRESHOLD = 30; // 30 minutes threshold
+const WARNING_PAGE_URL = 'warning.html';
+
+export { DEFAULT_CHECK_INTERVAL, EXTENDED_CHECK_INTERVAL, EXTENDED_INTERVAL_THRESHOLD, API_BASE_URL, WARNING_PAGE_URL };

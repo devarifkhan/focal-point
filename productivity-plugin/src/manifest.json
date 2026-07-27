@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "version": "1.1.0",
+  "name": "Focusly.pro",
+  "description": "A web extension for time management: limits site access, offers alerts/redirects, integrates with Google Calendar, and more.",
+  "icons": {
+    "128": "icon-128.png"
+  },
+  "options_page": "options.html",
+  "background": { "service_worker": "background.bundle.js" },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*", "<all_urls>"],
+      "js": ["contentScript.bundle.js","warning.js"]
+    }
+  ],
+  "devtools_page": "devtools.html",
+  "web_accessible_resources": [
+    {
+      "resources": ["warning.html", "logo-full.svg"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "host_permissions": ["<all_urls>"],
+  "permissions": [
+    "webNavigation",
+    "tabs",
+    "storage",
+    "scripting",
+    "notifications",
+    "contextMenus"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+
+}
